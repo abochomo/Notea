@@ -1,0 +1,13 @@
+# Archivos generados por Gradle, Kotlin y Android Studio
+/.gradle/
+/.kotlin/
+/build/
+/app/build/
+/.idea/
+
+# Configuracion local del entorno
+/local.properties
+
+# Artefactos y volcados generados
+*.hprof
+*.apk
