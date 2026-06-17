@@ -1,4 +1,4 @@
-package com.notea.presentation.settings
+﻿package com.notea.presentation.settings
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,7 +15,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.notea.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -25,10 +27,13 @@ fun SettingsScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Ajustes") },
+                title = { Text(stringResource(R.string.settings_title)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.common_back)
+                        )
                     }
                 }
             )
@@ -41,16 +46,16 @@ fun SettingsScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             ListItem(
-                headlineContent = { Text("Notificaciones") },
-                supportingContent = { Text("La app solicita POST_NOTIFICATIONS al arrancar si el sistema lo requiere.") }
+                headlineContent = { Text(stringResource(R.string.settings_notifications_title)) },
+                supportingContent = { Text(stringResource(R.string.settings_notifications_body)) }
             )
             ListItem(
-                headlineContent = { Text("Alarmas exactas") },
-                supportingContent = { Text("Si Android 14+ no concede alarmas exactas, Notea degrada a alarmas inexactas.") }
+                headlineContent = { Text(stringResource(R.string.settings_exact_alarms_title)) },
+                supportingContent = { Text(stringResource(R.string.settings_exact_alarms_body)) }
             )
             ListItem(
-                headlineContent = { Text("Versión") },
-                supportingContent = { Text("Notea 1.0.0") }
+                headlineContent = { Text(stringResource(R.string.settings_version_title)) },
+                supportingContent = { Text(stringResource(R.string.settings_version_body)) }
             )
         }
     }

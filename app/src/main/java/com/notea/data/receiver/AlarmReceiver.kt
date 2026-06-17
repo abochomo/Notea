@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.net.toUri
 import com.notea.MainActivity
+import com.notea.R
 import com.notea.data.notification.NotificationChannels
 
 class AlarmReceiver : BroadcastReceiver() {
@@ -24,13 +25,17 @@ class AlarmReceiver : BroadcastReceiver() {
             "routines" -> NotificationChannels.ROUTINES
             else -> NotificationChannels.REMINDERS
         }
+        val deepLinkUri = deepLink.toUri()
+        if (deepLinkUri.scheme != "notea") return
 
         val openIntent = Intent(
             Intent.ACTION_VIEW,
-            deepLink.toUri(),
+            deepLinkUri,
             context,
             MainActivity::class.java
-        )
+        ).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
 
         val contentIntent = PendingIntent.getActivity(
             context,
@@ -49,8 +54,8 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val notification = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(android.R.drawable.ic_dialog_info)
-            .setContentTitle(title.ifBlank { "Notea" })
-            .setContentText(body.ifBlank { "Tienes una acción pendiente." })
+            .setContentTitle(title.ifBlank { context.getString(R.string.notification_default_title) })
+            .setContentText(body.ifBlank { context.getString(R.string.notification_default_body) })
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setContentIntent(contentIntent)

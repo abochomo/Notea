@@ -10,8 +10,10 @@ import com.notea.data.repository.CalendarRepositoryImpl
 import com.notea.data.repository.NoteRepositoryImpl
 import com.notea.data.repository.ReminderRepositoryImpl
 import com.notea.data.repository.RoutineRepositoryImpl
+import com.notea.data.scheduler.AlarmRoutineScheduler
 import com.notea.data.scheduler.AlarmReminderScheduler
 import com.notea.data.scheduler.ReminderScheduler
+import com.notea.data.scheduler.RoutineScheduler
 import com.notea.domain.repository.CalendarRepository
 import com.notea.domain.repository.NoteRepository
 import com.notea.domain.repository.ReminderRepository
@@ -68,4 +70,7 @@ abstract class BindModule {
 
     @Binds
     abstract fun bindReminderScheduler(impl: AlarmReminderScheduler): ReminderScheduler
+
+    @Binds
+    abstract fun bindRoutineScheduler(impl: AlarmRoutineScheduler): RoutineScheduler
 }

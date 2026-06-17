@@ -5,7 +5,7 @@ enum class FrequencyType {
 }
 
 enum class QuestionFieldType {
-    TEXT, SINGLE_CHOICE, MULTIPLE_CHOICE, SCALE, BOOLEAN
+    TEXT, NUMBER, BOOLEAN, SINGLE_CHOICE, MULTIPLE_CHOICE, SCALE
 }
 
 enum class RoutineExecutionStatus {

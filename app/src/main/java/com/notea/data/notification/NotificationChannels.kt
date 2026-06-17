@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import com.notea.R
 
 object NotificationChannels {
     const val REMINDERS = "reminders"
@@ -16,18 +17,18 @@ object NotificationChannels {
 
         val reminderChannel = NotificationChannel(
             REMINDERS,
-            "Recordatorios",
+            context.getString(R.string.notification_channel_reminders_name),
             NotificationManager.IMPORTANCE_HIGH
         ).apply {
-            description = "Avisos locales de recordatorios"
+            description = context.getString(R.string.notification_channel_reminders_description)
         }
 
         val routineChannel = NotificationChannel(
             ROUTINES,
-            "Rutinas",
+            context.getString(R.string.notification_channel_routines_name),
             NotificationManager.IMPORTANCE_DEFAULT
         ).apply {
-            description = "Avisos locales de rutinas"
+            description = context.getString(R.string.notification_channel_routines_description)
         }
 
         manager.createNotificationChannels(listOf(reminderChannel, routineChannel))

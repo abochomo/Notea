@@ -12,9 +12,12 @@ data class CalendarDaySummary(
 }
 
 data class DayActivityItem(
+    val id: Long,
     val date: LocalDate,
     val timeLabel: String,
     val type: RecentItemType,
     val title: String,
-    val subtitle: String
+    val subtitle: String,
+    val routineStatus: RoutineExecutionStatus? = null,
+    val routineExecutionId: Long? = null
 )

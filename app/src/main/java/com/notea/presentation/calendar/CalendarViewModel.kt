@@ -6,6 +6,7 @@ import com.notea.domain.model.CalendarDaySummary
 import com.notea.domain.repository.CalendarRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flatMapLatest
@@ -19,6 +20,7 @@ class CalendarViewModel @Inject constructor(
 
     private val selectedMonth = MutableStateFlow(YearMonth.now())
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     val monthSummary = selectedMonth
         .flatMapLatest(repository::observeMonth)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyMap())
@@ -29,6 +31,10 @@ class CalendarViewModel @Inject constructor(
 
     fun nextMonth() {
         selectedMonth.value = selectedMonth.value.plusMonths(1)
+    }
+
+    fun goToToday() {
+        selectedMonth.value = YearMonth.now()
     }
 
     fun currentMonth(): YearMonth = selectedMonth.value

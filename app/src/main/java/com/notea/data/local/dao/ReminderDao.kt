@@ -44,4 +44,7 @@ interface ReminderDao {
 
     @Query("SELECT * FROM reminders WHERE remindAt BETWEEN :from AND :to ORDER BY remindAt ASC")
     suspend fun getActivityBetween(from: Long, to: Long): List<ReminderEntity>
+
+    @Query("SELECT * FROM reminders WHERE remindAt BETWEEN :from AND :to ORDER BY remindAt ASC")
+    fun observeActivityBetween(from: Long, to: Long): Flow<List<ReminderEntity>>
 }

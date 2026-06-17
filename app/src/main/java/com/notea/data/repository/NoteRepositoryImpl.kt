@@ -18,6 +18,9 @@ class NoteRepositoryImpl @Inject constructor(
     private val clock: Clock
 ) : NoteRepository {
 
+    override fun observeAllNotes(): Flow<List<Note>> =
+        noteDao.observeAllNotes().map { items -> items.map { it.toDomain() } }
+
     override fun observeActiveNotes(query: String): Flow<List<Note>> {
         val source = if (query.isBlank()) noteDao.observeNonArchivedNotes() else noteDao.searchNonArchivedNotes(query)
         return source.map { items -> items.map { it.toDomain() } }

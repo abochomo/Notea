@@ -5,6 +5,7 @@ import com.notea.domain.model.NoteDraft
 import kotlinx.coroutines.flow.Flow
 
 interface NoteRepository {
+    fun observeAllNotes(): Flow<List<Note>>
     fun observeActiveNotes(query: String = ""): Flow<List<Note>>
     fun observeFavoriteNotes(): Flow<List<Note>>
     fun observeArchivedNotes(): Flow<List<Note>>

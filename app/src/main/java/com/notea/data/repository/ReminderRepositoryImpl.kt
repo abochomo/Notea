@@ -56,7 +56,11 @@ class ReminderRepositoryImpl @Inject constructor(
         val insertedId = reminderDao.insert(entity)
         val finalId = draft.reminderId ?: insertedId
 
-        if (draft.notificationsEnabled && remindAtMillis > now) {
+        if (draft.reminderId != null) {
+            reminderScheduler.cancel(finalId)
+        }
+
+        if (!entity.isCompleted && draft.notificationsEnabled && remindAtMillis > now) {
             reminderScheduler.schedule(finalId, remindAtMillis, entity.title, entity.description)
         } else {
             reminderScheduler.cancel(finalId)

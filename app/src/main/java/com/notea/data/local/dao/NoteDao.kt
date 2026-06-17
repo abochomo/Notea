@@ -10,13 +10,16 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NoteDao {
+    @Query("SELECT * FROM notes ORDER BY updatedAt DESC")
+    fun observeAllNotes(): Flow<List<NoteEntity>>
+
     @Query("SELECT * FROM notes WHERE isArchived = 0 ORDER BY updatedAt DESC")
     fun observeNonArchivedNotes(): Flow<List<NoteEntity>>
 
     @Query("SELECT * FROM notes WHERE isArchived = 1 ORDER BY updatedAt DESC")
     fun observeArchivedNotes(): Flow<List<NoteEntity>>
 
-    @Query("SELECT * FROM notes WHERE isArchived = 0 AND isFavorite = 1 ORDER BY updatedAt DESC")
+    @Query("SELECT * FROM notes WHERE isFavorite = 1 ORDER BY updatedAt DESC")
     fun observeFavoriteNotes(): Flow<List<NoteEntity>>
 
     @Query("""
@@ -41,4 +44,7 @@ interface NoteDao {
 
     @Query("SELECT * FROM notes WHERE createdAt BETWEEN :from AND :to OR updatedAt BETWEEN :from AND :to")
     suspend fun getActivityBetween(from: Long, to: Long): List<NoteEntity>
+
+    @Query("SELECT * FROM notes WHERE createdAt BETWEEN :from AND :to OR updatedAt BETWEEN :from AND :to")
+    fun observeActivityBetween(from: Long, to: Long): Flow<List<NoteEntity>>
 }
