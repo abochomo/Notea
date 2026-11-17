@@ -26,7 +26,7 @@ import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.DataObject
 import androidx.compose.material.icons.filled.FormatBold
 import androidx.compose.material.icons.filled.FormatItalic
-import androidx.compose.material.icons.filled.FormatListBulleted
+import androidx.compose.material.icons.automirrored.filled.FormatListBulleted
 import androidx.compose.material.icons.filled.FormatListNumbered
 import androidx.compose.material.icons.filled.FormatQuote
 import androidx.compose.material.icons.filled.FormatStrikethrough
@@ -533,7 +533,7 @@ fun MarkdownToolbar(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             ToolButton(Icons.Filled.CheckBox, "Lista de casillas") { commit(toggleLinePrefix(t, s, e, LineKind.TASK)) }
-            ToolButton(Icons.Filled.FormatListBulleted, "Lista") { commit(toggleLinePrefix(t, s, e, LineKind.BULLET)) }
+            ToolButton(Icons.AutoMirrored.Filled.FormatListBulleted, "Lista") { commit(toggleLinePrefix(t, s, e, LineKind.BULLET)) }
             ToolButton(Icons.Filled.FormatListNumbered, "Lista numerada") { commit(toggleLinePrefix(t, s, e, LineKind.ORDERED)) }
             ToolButton(Icons.Filled.Title, "Título") { commit(cycleHeading(t, s, e)) }
             ToolButton(Icons.Filled.FormatBold, "Negrita") { commit(wrapSelection(t, s, e, "**")) }
