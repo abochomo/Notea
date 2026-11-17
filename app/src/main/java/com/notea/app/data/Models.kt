@@ -57,6 +57,12 @@ data class Answer(
         QType.RATING -> text.toIntOrNull()?.let { "★".repeat(it) + "☆".repeat((5 - it).coerceAtLeast(0)) } ?: ""
         QType.NUMBER -> if (text.isBlank()) "" else if (q.unit.isBlank()) text else "$text ${q.unit}"
         QType.SCALE -> if (text.isBlank()) "" else "$text / ${q.max}"
+        QType.DATE -> try {
+            val d = java.time.LocalDate.parse(text)
+            String.format(java.util.Locale.US, "%02d/%02d/%04d", d.dayOfMonth, d.monthValue, d.year)
+        } catch (e: Exception) {
+            text
+        }
         else -> text
     }
 }
