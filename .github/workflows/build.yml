@@ -18,9 +18,8 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17
-
-      - uses: gradle/actions/setup-gradle@v4
+          java-version: '17'
+          cache: gradle
 
       - name: Compilar
         run: |
@@ -40,10 +39,8 @@ jobs:
 
       - name: Publicar en Releases (latest)
         if: github.event_name != 'pull_request'
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: latest
-          name: Notea (última compilación)
-          body: "APK generado automáticamente desde ${{ github.sha }}. Instala Notea.apk."
-          files: dist/*.apk
-          make_latest: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view latest >/dev/null 2>&1 || gh release create latest --title "Notea (ultima compilacion)" --notes "APK generado automaticamente por GitHub Actions. Instala Notea.apk." --target "$GITHUB_SHA"
+          gh release upload latest dist/*.apk --clobber
